@@ -33,3 +33,21 @@ def read_pdf_resume(pdf_doc):
         return text
 
 
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
