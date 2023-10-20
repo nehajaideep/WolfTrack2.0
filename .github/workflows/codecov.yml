@@ -1,0 +1,30 @@
+name: Upload coverage reports to Codecov
+
+on:
+  push: # This workflow will run on pushes to the repository
+
+jobs:
+  upload-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.18 
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt 
+             pip install pytest-cov
+
+      - name: Run Unit Tests and Generate Coverage Reports
+        run: |
+            pytest --cov=./UnitTesting
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

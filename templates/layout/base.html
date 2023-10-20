@@ -1,391 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>WolfTrack - Home</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <title>WolfTrack - Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  <script>
-    target = 40
-    applied = 11
-    function setTarget() {
-      target = parseInt(document.getElementById("target").value);
-      draw()
-    }
-
-  </script>
-  <style>
-    .icon-function {
-      color: #16353F;
-      cursor: pointer;
-    }
-    #resumeAnalyzer a{
-      text-decoration: none;
-      color:black;
-    }
-    #resumeAnalyzer {
-      font-weight: bold;
-    }
-    #rA:hover {
-      transform: translateY(-5px);
-
-    }
-    #setTarget:hover {
-      transform: translateY(-5px);
-
-    }
-    .project-icon {
-      margin-top: 5px; 
-      margin-right: 5px;
-    }
-    .card-common {
-      width: 18rem; 
-      text-align: left;
-    }
-    .daily-target-chart {
-      width: 18rem; 
-      height: 180px; 
-      margin: 0 auto;
-      border-radius: 5px;
-    }
-    .feature-button {
-      background-color: #da2d2d; 
-      border-radius: 5px;
-    }
-    .section-heading {
-      width: 18rem; 
-      font-size: 20px; 
-      text-align: left; 
-      color:#1c4552
-    }
-    .section-division {
-      width: 18rem; 
-      height: 4px; 
-      border-bottom: 
-      3px solid #1c4552; 
-      text-align: center
-    }
-    .section-content {
-      width: 18rem; 
-      text-align: left; 
-      padding-top: 10px ;
-    }
-    .align-centre {
-      text-align: center;
-    }
-    .padding-left-right-6 {
-      padding-left: 6px;
-      padding-right: 6px;
-    }
-    .pointer-cursor {
-      cursor: pointer;
-    }
-  </style>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-
-</head>
-
-<body>
-  <script>
-    $(document).ready(function () {
-      document.getElementById("target").value = target;
-      draw()
-    });
-    function draw() {
-      var date = new Date();
-      var newdate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-      var chart = {
-        type: 'bar'
-      };
-      var title = {
-        text: 'Daily Goal Check'
-      };
-      var exporting = {
-        enabled: false
-      };
-      var xAxis = {
-        categories: [''],
-        title: {
-          text: newdate
-        }
-      };
-      var yAxis = {
-        min: 0,
-        title: {
-          text: 'Application Count',
-        }
-      };
-
-      var plotOptions = {
-        bar: {
-          stacking: 'normal'
-        }
-      };
-      var legend = {
-        reversed: true
-      };
-      var credits = {
-        enabled: false
-      };
-      var series = [
-        {
-          name: 'To Apply',
-          data: [target - applied]
-        },
-        {
-          name: 'Applied',
-          data: [applied]
-        }
-      ];
-
-      var json = {};
-      json.chart = chart;
-      json.title = title;
-      json.exporting = exporting;
-      json.xAxis = xAxis;
-      json.yAxis = yAxis;
-      json.series = series;
-      json.plotOptions = plotOptions;
-      json.legend = legend;
-      json.credits = credits;
-      $('#container').highcharts(json);
-    }
-  </script>
-  <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
-    <ul class="navbar-nav ">
-      <img class="rounded-circle project-icon" alt="100x100"
-        src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg" height="30px"
-        width="30px" data-holder-rendered="true">
-      <a class="navbar-brand" href="/">WolfTrack</a>
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/logout">Logout</a>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="container-fluid">
-    <div class="row" style="margin-top: 2%;">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
       
-      <div class="card1" id = "resumeAnalyzer" style="width: 100%;">
-        <div style="display:flex; justify-content: space-evenly;">
-          <a href="resumeAnalyzer"  class="cta pointer-cursor">
+   
+      target = 40;
+      applied = 1;
+      function setTarget() {
+        target = parseInt(document.getElementById("target").value);
+        draw();
+      }
+    </script>
+    <style>
+      .icon-function {
+        color: #16353f;
+        cursor: pointer;
+      }
+      #resumeAnalyzer a {
+        text-decoration: none;
+        color: black;
+      }
+      #resumeAnalyzer {
+        font-weight: bold;
+      }
+      #rA:hover {
+        transform: translateY(-5px);
+      }
+      #setTarget:hover {
+        transform: translateY(-5px);
+      }
+      .project-icon {
+        margin-top: 5px;
+        margin-right: 5px;
+      }
+      .card-common {
+        width: 18rem;
+        text-align: left;
+      }
+      .daily-target-chart {
+        width: 18rem;
+        height: 180px;
+        margin: 0 auto;
+        border-radius: 5px;
+      }
+      .feature-button {
+        background-color: #da2d2d;
+        border-radius: 5px;
+      }
+      .section-heading {
+        width: 18rem;
+        font-size: 20px;
+        text-align: left;
+        color: #1c4552;
+      }
+      .section-division {
+        width: 18rem;
+        height: 4px;
+        border-bottom: 3px solid #1c4552;
+        text-align: center;
+      }
+      .section-content {
+        width: 18rem;
+        text-align: left;
+        padding-top: 10px;
+      }
+      .align-centre {
+        text-align: center;
+      }
+      .padding-left-right-6 {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+      .pointer-cursor {
+        cursor: pointer;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/layout.css') }}"
+    />
+  </head>
+
+  <body>
+    <script>
+      $(document).ready(function () {
+        document.getElementById("target").value = target;
+        draw();
+      });
+      function draw() {
+        var date = new Date();
+        var newdate =
+          date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+        var chart = {
+          type: "bar",
+        };
+        var title = {
+          text: "Daily Goal Check",
+        };
+        var exporting = {
+          enabled: false,
+        };
+        var xAxis = {
+          categories: [""],
+          title: {
+            text: newdate,
+          },
+        };
+        var yAxis = {
+          min: 0,
+          title: {
+            text: "Application Count",
+          },
+        };
+
+        var plotOptions = {
+          bar: {
+            stacking: "normal",
+          },
+        };
+        var legend = {
+          reversed: true,
+        };
+        var credits = {
+          enabled: false,
+        };
+        var series = [
+          {
+            name: "To Apply",
+            data: [target - applied],
+          },
+          {
+            name: "Applied",
+            data: [applied],
+          },
+        ];
+
+        var json = {};
+        json.chart = chart;
+        json.title = title;
+        json.exporting = exporting;
+        json.xAxis = xAxis;
+        json.yAxis = yAxis;
+        json.series = series;
+        json.plotOptions = plotOptions;
+        json.legend = legend;
+        json.credits = credits;
+        $("#container").highcharts(json);
+      }
+    </script>
+    <!-- <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+      <ul class="navbar-nav">
+        <img
+          class="rounded-circle project-icon"
+          alt="100x100"
+          src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg"
+          height="30px"
+          width="30px"
+          data-holder-rendered="true"
+        />
+        <a class="navbar-brand" href="/">WolfTrack</a>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </nav> -->
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+      <ul class="navbar-nav">
+        <img
+          class="rounded-circle project-icon"
+          alt="100x100"
+          src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg"
+          height="30px"
+          width="30px"
+          style="margin-right: 5px; margin-top: 5px"
+          data-holder-rendered="true"
+        />
+        <a class="navbar-brand" href="/">WolfTrack</a>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/resumeAnalyzer" style="color: #facaca; text-decoration: none"
+          >Analyze Resume</a
+        >
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/findJobs" style="color: #facaca; text-decoration: none"
+          >Recommended Jobs</a
+        >
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/chat_gpt_analyzer" style="color: #facaca; text-decoration: none">Resume Suggestions</a>
+    </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row" style="margin-top: 2%">
+        <div class="card1" id="resumeAnalyzer" style="width: 100%">
+          <div style="display: flex; justify-content: space-evenly">
+            <!-- <a href="resumeAnalyzer"  class="cta pointer-cursor">
             <div class="d-flex mb-3 mb-md-0 btn-block feature-button" id= "rA">
               <div class = "p-2"><i class="material-icons icon-function">playlist_add_check</i></div>
 
               <div class = "p-2 flex-grow-1 align-centre"><span>Analyze Resume</span></div>
             </div>
             
-          </a>
-          <a href="findJobs"  class="cta pointer-cursor">
+          </a> -->
+            <!-- <a href="findJobs"  class="cta pointer-cursor">
             <div class="d-flex mb-3 mb-md-0 btn-block feature-button" id= "rA">
               <div class = "p-2"><i class="material-icons icon-function">search</i></div>
 
               <div class = "p-2 flex-grow-1 align-centre"><span>Recommend Jobs</span></div>
             </div>
             
-          </a>
-          <div href="#targetModal" data-toggle="modal" data-target="#targetModal" class="cta pointer-cursor">
-            <div class="d-flex mb-3 mb-md-0 btn-block feature-button" id ="setTarget">
-              <div class = "p-2"><i class="material-icons icon-function">filter_center_focus</i></div>
+          </a> -->
+            <div
+              href="#targetModal"
+              data-toggle="modal"
+              data-target="#targetModal"
+              class="cta pointer-cursor"
+            >
+              <div
+                class="d-flex mb-3 mb-md-0 btn-block feature-button"
+                id="setTarget"
+              >
+                <div class="p-2">
+                  <i class="material-icons icon-function"
+                    >filter_center_focus</i
+                  >
+                </div>
 
-              <div class = "p-2 flex-grow-1 align-centre" style="color:black"><span>Set Target</span></div>
+                <div class="p-2 flex-grow-1 align-centre" style="color: black">
+                  <span>Set Target</span>
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
-    </div>
-    <div class="row content">
-
-      <!-- Left Sidebar -->
-      <div class="col-sm-3 sidenav sidenav-left">
-        <center>
-          <!-- <img class="rounded-circle" alt="100x100"
+      <div class="row content">
+        <!-- Left Sidebar -->
+        <div class="col-sm-3 sidenav sidenav-left">
+          <center>
+            <!-- <img class="rounded-circle" alt="100x100"
             src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg" height="250px"
             width="250px" data-holder-rendered="true">
 
           <br><br> -->
 
-          <div class="card card-common">
-            <div class="card-body">
-              <h5 class="card-title">Elliot Anderson</h5>
-              <div class="row">
-                <div class="col">
-                  <b>Gender</b>
+            <div class="card card-common">
+              <div class="card-body">
+                <h5 class="card-title">Elliot Anderson</h5>
+                <div class="row">
+                  <div class="col">
+                    <b>Gender</b>
+                  </div>
+                  <div class="col">Male</div>
                 </div>
-                <div class="col">
-                  Male
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col">
-                  <b>Location</b>
+                <div class="row">
+                  <div class="col">
+                    <b>Location</b>
+                  </div>
+                  <div class="col">Raleigh, NC</div>
                 </div>
-                <div class="col">
-                  Raleigh, NC
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-          <br />
-          <div id="container" class="daily-target-chart"></div>
-          <br/>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Upcoming Events</h5>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Company</th>
-                    <th scope="col">Due Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for item in upcoming_events %}
-                  <tr>
-                    <td>{{ item.company }}</td>
-                    <td>{{ item.duedate }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          
-          </div>
-          
-          
-        </center>
-        <div class="modal fade" id="targetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Set Target</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="dailyTarget">Daily Target</label>
-                  <input type="number" id="target" name="target" class="form-control" id="target" value="10">
-                </div>
-              </div>
-              <div class="modal-footer" style="height: 50px !important;">
-                <button type="button" class="btn-sm btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn-sm btn-primary" data-dismiss="modal" onClick="setTarget()">Set</button>
               </div>
             </div>
-          </div>
-        </div>
-        <br />
-      </div>
-
-      <!-- Content -->
-      <div class="col-sm-6 text-left main-content">
-        <center>
-          {% block content %}{% endblock %}
-        </center>
-      </div>
-
-
-
-      <!-- Right Sidebar -->
-      <div class="col-sm-3 sidenav sidenav-right">
-
-        <div class = "section-heading" >
-          CV <!--Padding is optional-->
-          <div class="section-division">
-          </div>
-          <div class="section-content">
-            <form id="upload-form" action="{{url_for('home_route.upload')}}" method="POST" enctype="multipart/form-data">
-              <input type="file" name="file" multiple style="color: #1d4552;font-size: 14px;" />
-              <button href="upload" type="Submit" value="upload()" name="Upload" class="btn btn-dark"
-                style="margin-top: 5%;position: relative;">Add CV</button>
-              </form>
-                <form action="{{url_for('home_route.display')}}" method="POST" enctype="multipart/form-data">
-                  <button href="display" type="Submit" value="display()" name="display" class="btn btn-dark"
-                    style="margin-top: 5%;position: relative;">Download CV</button>
-                </form>
-  
-            
-          </div>
-        </div>
-        <div class = "section-heading" style="padding-top: 20px;">
-          Send Profile <!--Padding is optional-->
-          <div class = "section-division">
-          </div>
-          <div class="section-content">
-            <form action="{{url_for('home_route.send_Profile')}}" method="POST">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text padding-left-right-6"id="btnGroupAddon">
-                    <i class="material-icons icon-eye">email</i>
+            <br />
+            <div id="container" class="daily-target-chart"></div>
+            <br />
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Upcoming Events</h5>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Company</th>
+                      <th scope="col">Due Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in upcoming_events %}
+                    <tr>
+                      <td>{{ item.company }}</td>
+                      <td>{{ item.duedate }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </center>
+          <div
+            class="modal fade"
+            id="targetModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Set Target</h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="dailyTarget">Daily Target</label>
+                    <input
+                      type="number"
+                      id="target"
+                      name="target"
+                      class="form-control"
+                      id="target"
+                      value="10"
+                    />
                   </div>
                 </div>
-                <input type="text" name="emailID" id="emailID" class="form-control" placeholder="Email ID">
-                <div class="input-group-append" value="send_Profile()" onclick="">
-                  <button type="submit" class="input-group-text btn-primary padding-left-right-6"id="btnGroupAddon">
-                    <i class="material-icons icon-eye">send</i>
+                <div class="modal-footer" style="height: 50px !important">
+                  <button
+                    type="button"
+                    class="btn-sm btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-sm btn-primary"
+                    data-dismiss="modal"
+                    onClick="setTarget()"
+                  >
+                    Set
                   </button>
                 </div>
               </div>
-            </form>
-  
+            </div>
           </div>
+          <br />
         </div>
 
-        <br>
+        <!-- Content -->
+        <div class="col-sm-6 text-left main-content">
+          <center>{% block content %}{% endblock %}</center>
+        </div>
 
-        <!-- Map from Power BI -->
-        <div>
+        <!-- Right Sidebar -->
+        <div class="col-sm-3 sidenav sidenav-right">
+          <div class="section-heading">
+            CV
+            <!--Padding is optional-->
+            <div class="section-division"></div>
+            <div class="section-content">
+              <form
+                id="upload-form"
+                action="{{url_for('home_route.upload')}}"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <input
+                  type="file"
+                  name="file"
+                  multiple
+                  style="color: #1d4552; font-size: 14px"
+                />
+                <button
+                  href="upload"
+                  type="Submit"
+                  value="upload()"
+                  name="Upload"
+                  class="btn btn-dark"
+                  style="margin-top: 5%; position: relative"
+                >
+                  Add CV
+                </button>
+              </form>
+              <form
+                action="{{url_for('home_route.display')}}"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <button
+                  href="display"
+                  type="Submit"
+                  value="display()"
+                  name="display"
+                  class="btn btn-dark"
+                  style="margin-top: 5%; position: relative"
+                >
+                  Download CV
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="section-heading" style="padding-top: 20px">
+            Send Profile
+            <!--Padding is optional-->
+            <div class="section-division"></div>
+            <div class="section-content">
+              <form
+                action="{{url_for('home_route.send_Profile')}}"
+                method="POST"
+              >
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div
+                      class="input-group-text padding-left-right-6"
+                      id="btnGroupAddon"
+                    >
+                      <i class="material-icons icon-eye">email</i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    name="emailID"
+                    id="emailID"
+                    class="form-control"
+                    placeholder="Email ID"
+                  />
+                  <div
+                    class="input-group-append"
+                    value="send_Profile()"
+                    onclick=""
+                  >
+                    <button
+                      type="submit"
+                      class="input-group-text btn-primary padding-left-right-6"
+                      id="btnGroupAddon"
+                    >
+                      <i class="material-icons icon-eye">send</i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Job Application Map</h5>
-              <center>
-                <iframe height="220"
-                  src="https://app.powerbi.com/view?r=eyJrIjoiZTIwOGJkZjctNzYzMC00YjQyLTljMjQtZWUxM2Q3Y2ZlYjk0IiwidCI6IjgwZjIzZjRhLTkxYTQtNDU2Ni04ZGIxLTNiY2FiYjIxZDFjYiIsImMiOjF9"
-                  frameborder="0" allowFullScreen="false"></iframe>
-              </center>
+          <br />
+
+          <!-- Map from Power BI -->
+          <div>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Job Application Map</h5>
+                <center>
+                  <iframe
+                    height="220"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiZTIwOGJkZjctNzYzMC00YjQyLTljMjQtZWUxM2Q3Y2ZlYjk0IiwidCI6IjgwZjIzZjRhLTkxYTQtNDU2Ni04ZGIxLTNiY2FiYjIxZDFjYiIsImMiOjF9"
+                    frameborder="0"
+                    allowfullscreen="false"
+                  ></iframe>
+                </center>
+              </div>
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
-  </div>
-
-
-</body>
-
+  </body>
 </html>

@@ -1,49 +1,81 @@
 {% extends "layout/base.html" %}
+
 {% block content %}
 <style>
   .card-footer-div {
-    background:none !important;
+    background: none !important;
     padding: 0.75 rem 1.25 rem !important;
-    border-top: 1px solid transparent !important
+    border-top: 1px solid transparent !important;
   }
+
   .icon-eye {
-    color: #16353F;
+    color: #16353f;
     cursor: pointer;
   }
+
   .card-common-style {
     width: 18rem;
     box-shadow: 5px 7px #1c4552;
   }
+  .footer-text {
+    font-size: 12px;
+    color: #555; /* Adjust the color as needed */
+    text-align: center;
+    margin-top: 10px;
+  }
 </style>
 <script>
-$(document).ready(function() {
-    $("#show_hide_password div").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "text"){
-            $('#show_hide_password input').attr('type', 'password');
-            document.getElementsByClassName('input-group-text')[0].children[0].innerHTML = '<i class="material-icons icon-eye">visibility_off</i>'
-        }else if($('#show_hide_password input').attr("type") == "password"){
-            $('#show_hide_password input').attr('type', 'text');
-            document.getElementsByClassName('input-group-text')[0].children[0].innerHTML = '<i class="material-icons icon-eye">visibility</i>'
-        }
+  $(document).ready(function () {
+    $("#show_hide_password div").on("click", function (event) {
+      event.preventDefault();
+      if ($("#show_hide_password input").attr("type") == "text") {
+        $("#show_hide_password input").attr("type", "password");
+        document.getElementsByClassName(
+          "input-group-text"
+        )[0].children[0].innerHTML =
+          '<i class="material-icons icon-eye">visibility_off</i>';
+      } else if ($("#show_hide_password input").attr("type") == "password") {
+        $("#show_hide_password input").attr("type", "text");
+        document.getElementsByClassName(
+          "input-group-text"
+        )[0].children[0].innerHTML =
+          '<i class="material-icons icon-eye">visibility</i>';
+      }
     });
-});
+  });
+  let data = JSON.parse(localStorage.getItem("jobApplications"));
+  const wishlistCompanyNames = data
+    .filter((entry) => entry.status === "Wishlist")
+    .map((entry) => entry.company);
+  const inProgressCompanyNames = data
+    .filter((entry) => entry.status === "In Progress")
+    .map((entry) => entry.company);
+  const appliedCompanyNames = data
+    .filter((entry) => entry.status === "Applied")
+    .map((entry) => entry.company);
+  const offerCompanyNames = data
+    .filter((entry) => entry.status === "Offer")
+    .map((entry) => entry.company);
 </script>
 
 <div class="row">
   <div class="card status-card col-md card-common-style">
-    <i class="material-icons card-icons">star</i>
+    <i class="material-icons card-icons">beenhere</i>
     <div class="card-body">
-      <h5 class="card-title">Wish List</h5>
+      <h5 class="card-title">Applied</h5>
       <ul class="list-group list-group-flush">
-        {% for item in data.wishlist %}
-        <li class="list-group-item border-0">{{ item }}</li>
-        {% endfor %}
+        <script>
+          for (const company of appliedCompanyNames) {
+            document.write(
+              '<li class="list-group-item border-0">' + company + "</li>"
+            );
+          }
+        </script>
       </ul>
     </div>
     <div class="card-footer card-footer-div">
-        <a href="/view?show=wish_list" class="card-link">View More</a>
-        <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
+      <a href="/companiesList?status=Applied" class="card-link">View More</a>
+      <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
     </div>
   </div>
 
@@ -52,133 +84,154 @@ $(document).ready(function() {
     <div class="card-body">
       <h5 class="card-title">In Process</h5>
       <ul class="list-group list-group-flush">
-        {% for item in data.inprogress %}
-        <li class="list-group-item border-0">{{ item }}</li>
-        {% endfor %}
+        <script>
+          for (const company of inProgressCompanyNames) {
+            document.write(
+              '<li class="list-group-item border-0">' + company + "</li>"
+            );
+          }
+        </script>
       </ul>
     </div>
-    
     <div class="card-footer card-footer-div">
-        <a href="/view?show=in_progress" class="card-link">View More</a>
-        <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter" >Add New</a>
+      <a href="/companiesList?status=In Progress" class="card-link">View More</a>
+      <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="card status-card col-md card-common-style">
-    <i class="material-icons card-icons">task</i>
+    <i class="material-icons card-icons">star</i>
     <div class="card-body">
-      <h5 class="card-title">Applied</h5>
+      <h5 class="card-title">Wish List</h5>
       <ul class="list-group list-group-flush">
-        {% for item in data.applied %}
-        <li class="list-group-item border-0">{{ item }}</li>
-        {% endfor %}
+        <script>
+          for (const company of wishlistCompanyNames) {
+            document.write(
+              '<li class="list-group-item border-0">' + company + "</li>"
+            );
+          }
+        </script>
       </ul>
     </div>
-    
     <div class="card-footer card-footer-div">
-        <a href="/view?show=applied" class="card-link">View More</a>
-        <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
+      <a href="/companiesList?status=Wishlist" class="card-link">View More</a>
+      <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
     </div>
   </div>
 
   <div class="card status-card col-md card-common-style">
-    <i class="material-icons card-icons">beenhere</i>
+    <i class="material-icons card-icons">task</i>
     <div class="card-body">
       <h5 class="card-title">Offers</h5>
-      <ul class="list-group list-group-flush">
-        {% for item in data.offers %}
-        <li class="list-group-item border-0">{{ item }}</li>
-        {% endfor %}
-      </ul>
+      <script>
+        for (const company of offerCompanyNames) {
+          document.write(
+            '<li class="list-group-item border-0">' + company + "</li>"
+          );
+        }
+      </script>
     </div>
-    
     <div class="card-footer card-footer-div">
-        <a href="/view?show=offers" class="card-link">View More</a>
-        <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
+      <a href="/companiesList?status=Offer" class="card-link">View More</a>
+      <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModalCenter">Add New</a>
     </div>
   </div>
 </div>
 
 <!-- Modal for New Application -->
 <form action="{{url_for('home_route.add_New')}}" method="POST">
-<div class="modal fade new-application-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">New Job Application</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="text-align: left;">
-        <div class="form-group">
-          <label for="exampleInputName">Company Name</label>
-          <input type="text" name="fullname" class="form-control" id="exampleInputName" placeholder="Google"
-            required="required">
+  <div class="modal fade new-application-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">
+            New Job Application
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label for="Location" required="required">Location</label>
-          <input type="text" name="location_text" class="form-control" id="Location" placeholder="Enter Location">
-        </div>
-        <div class="form-group">
-          <label for="JobProfile">Job Profile</label>
-          <input type="text" name="text" class="form-control" id="JobProfile" placeholder="Enter Job Profile">
-        </div>
-        <div class="form-group">
-          <label for="Salary">Salary</label>
-          <input type="text" name="sal" class="form-control" id="Salary" placeholder="Enter Salary">
-        </div>
-        <div class="form-group">
-          <label for="Username">Username</label>
-          <input type="text" name="user" class="form-control" id="Username" placeholder="Enter Username">
-        </div>
-        <div class="form-group">
-          <label for="Password">Password</label>
-          <div class="input-group" id="show_hide_password">
-            <input type="password" name="pass" class="form-control" id="Password" placeholder="Enter Password">
-            <div class="input-group-append">
-              <span class="input-group-text"> <i class="material-icons icon-eye">visibility</i></span>
+        <div class="modal-body" style="text-align: left">
+          <div class="form-group">
+            <label for="exampleInputName">Company Name</label>
+            <input type="text" name="fullname" class="form-control" id="exampleInputName" placeholder="Google"
+              required="required" />
+          </div>
+          <div class="form-group">
+            <label for="Location" required="required">Location</label>
+            <input type="text" name="location_text" class="form-control" id="Location" placeholder="Enter Location" />
+          </div>
+          <div class="form-group">
+            <label for="JobProfile">Job Profile</label>
+            <input type="text" name="text" class="form-control" id="JobProfile" placeholder="Enter Job Profile" />
+          </div>
+          <div class="form-group">
+            <label for="Salary">Salary</label>
+            <input type="text" name="sal" class="form-control" id="Salary" placeholder="Enter Salary" />
+          </div>
+          <div class="form-group">
+            <label for="Username">Username</label>
+            <input type="text" name="user" class="form-control" id="Username" placeholder="Enter Username" />
+          </div>
+          <div class="form-group">
+            <label for="Password">Password</label>
+            <div class="input-group" id="show_hide_password">
+              <input type="password" name="pass" class="form-control" id="Password" placeholder="Enter Password" />
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="material-icons icon-eye">visibility</i></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="Email">User Email</label>
-          <input type="text" name="user_email" class="form-control" id="Email" placeholder="Enter Email">
-        </div>
-        <div class="form-group">
-          <label for="SecurityQuestion">Security Question</label>
-          <input type="text" name="sec_question" class="form-control" id="SecurityQuestion"
-            placeholder="Enter Security Question">
-        </div>
-        <div class="form-group">
-          <label for="SecurityAnswer">Security Answer</label>
-          <input type="text" name="sec_address" class="form-control" id="SecurityAnswer"
-            placeholder="Enter Security Answer">
-        </div>
-        <div class="form-group">
-          <label for="Notes">Notes</label>
-          <textarea name="notes" class="form-control" id="Notes" placeholder="Save links and other information here"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="example-date-input" class="col-3 col-form-label">Date Applied</label>
-          <div class="col-10">
-            <input class="form-control" name="starting_date" type="date" value="2020-02-01" id="example-date-input">
+          <div class="form-group">
+            <label for="Email">User Email</label>
+            <input type="text" name="user_email" class="form-control" id="Email" placeholder="Enter Email" />
+          </div>
+          <div class="form-group">
+            <label for="SecurityQuestion">Security Question</label>
+            <input type="text" name="sec_question" class="form-control" id="SecurityQuestion"
+              placeholder="Enter Security Question" />
+          </div>
+          <div class="form-group">
+            <label for="SecurityAnswer">Security Answer</label>
+            <input type="text" name="sec_address" class="form-control" id="SecurityAnswer"
+              placeholder="Enter Security Answer" />
+          </div>
+          <div class="form-group">
+            <label for="Notes">Notes</label>
+            <textarea name="notes" class="form-control" id="Notes"
+              placeholder="Save links and other information here"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="example-date-input" class="col-3 col-form-label">Date Applied</label>
+            <div class="col-10">
+              <input class="form-control" name="starting_date" type="date" value="2020-02-01" id="example-date-input" />
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label class="mr-4">Upload your CV:</label>
+            <input type="file" name="file" accept=".docx, .doc, .pdf, .png, .jpeg, .jpg" />
           </div>
         </div>
-        <div class="form-group mt-3">
-          <label class="mr-4">Upload your CV:</label>
-          <input type="file" name="file" accept=".docx, .doc, .pdf, .png, .jpeg, .jpg">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button href="add_New" type="Submit" class="btn btn-primary" value="add_New()">
+            Add
+          </button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button href="add_New" type="Submit" class="btn btn-primary" value="add_New()">Add</button>
       </div>
     </div>
   </div>
-</div>
 </form>
+<div class="footer-text">
+  For support and inquiries related to WolfTrack 4.0, please contact us at <a
+    href="mailto:wolftrack404@gmail.com">wolftrack404@gmail.com</a>.<br> Join our active Discord community at <a
+    href="https://discord.gg/bmaXxb3yg4">https://discord.gg/bmaXxb3yg4</a> to engage, ask questions, and receive timely
+  updates.
+</div>
 {% endblock content %}

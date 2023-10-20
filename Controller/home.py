@@ -8,6 +8,7 @@ from Controller.ResumeParser import *
 import os
 from flask import send_file, current_app as app
 from Controller.data import data, upcoming_events, profile
+from Controller.chat_gpt_pipeline import pdf_to_text,chatgpt
 
 home_route = Blueprint('home_route', __name__)
 
@@ -88,6 +89,11 @@ def upload():
 def view_ResumeAna():
     return render_template('resume_analyzer.html')
 
+@home_route.route('/companiesList', methods=['GET'])
+@login_required
+def view_companies_list():
+    return render_template('companies_list.html')
+
 
 @home_route.route('/findJobs', methods=['GET'])
 @login_required
@@ -115,3 +121,40 @@ def display():
     filename = os.listdir(path)
     print(filename, path)
     return send_file(path+str(filename[0]), attachment_filename= str(filename[0]))
+
+
+@home_route.route('/chat_gpt_analyzer/', methods=['GET'])
+def chat_gpt_analyzer():
+    files = os.listdir(os.getcwd()+'/Controller/resume')
+    print(files[0])
+    pdf_path = os.getcwd()+'//Controller/resume/'+files[0]
+    text_path = os.getcwd()+'//Controller/resume_txt/'+files[0][:-3]+'txt'
+    with open(text_path, 'w'):
+        pass
+    pdf_to_text(pdf_path, text_path)
+    suggestions = chatgpt(text_path)
+    flag = 0
+    final_sugges_send = []
+    final_sugges = ""
+
+    # Initialize an empty string to store the result
+    result_string = ""
+
+    # Iterate through each character in the original string
+    for char in suggestions:
+        # If the character is not a newline character, add it to the result string
+        if char != '\n':
+            final_sugges += char
+    sections = final_sugges.split("Section")
+    for section in sections:
+        section = section.strip()  # Remove leading and trailing whitespace
+        # if section:  # Check if the section is not empty (e.g., due to leading/trailing "Section")
+        #     print("Section:", section)
+    print(sections)
+    sections = sections[1:]
+    section_names = ['Education', 'Experience','Skills', 'Projects']
+    sections[0] = sections[0][3:]
+    sections[1] = sections[1][3:]
+    sections[2] = sections[2][3:]
+    sections[3] = sections[3][3:]
+    return render_template('chat_gpt_analyzer.html', suggestions=sections, pdf_path=pdf_path, section_names = section_names)

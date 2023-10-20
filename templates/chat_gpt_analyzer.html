@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JavaScript example</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" />
+    <style media="only screen">
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            overflow: auto;
+        }
+
+        body {
+            overflow: auto;
+        }
+
+        #myElement {
+            color: black;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            /* Use flexbox to arrange the divs horizontally */
+            justify-content: space-between;
+            /* Spread the divs evenly in the container */
+        }
+
+        .card {
+            /* Add any additional styling for your cards here */
+            margin: 10px;
+            /* Optional margin between the cards */
+        }
+
+        .text-black {
+            color: black;
+        }
+
+        .row {
+            height: 100vh;
+            /* Make the row take up the full viewport height */
+        }
+    </style>
+</head>
+
+<body></body>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+        <ul class="navbar-nav">
+            <img class="rounded-circle project-icon" alt="100x100"
+                src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg"
+                height="30px" width="30px" style="margin-right: 5px; margin-top: 5px" data-holder-rendered="true" />
+            <a class="navbar-brand" href="/">WolfTrack</a>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <a href="/resumeAnalyzer" style="color: #facaca; text-decoration: none">Analyze Resume</a>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <a href="/findJobs" style="color: #facaca; text-decoration: none">Recommended Jobs</a>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <a href="/chat_gpt_analyzer" style="color: #facaca; text-decoration: none">Resume Suggestions</a>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <h1 id="myElement">Suggestions:</h1>
+    <div class="row">
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-black">{{section_names[0]}}</h5>
+                    <p class="card-text text-black">{{suggestions[0]}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-black">{{section_names[1]}}</h5>
+                    <p class="card-text text-black">{{suggestions[1]}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-black">{{section_names[2]}}</h5>
+                    <p class="card-text text-black">{{suggestions[2]}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-black">{{section_names[3]}}</h5>
+                    <p class="card-text text-black">{{suggestions[3]}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- </ul> -->
+</body>
+
+</html>

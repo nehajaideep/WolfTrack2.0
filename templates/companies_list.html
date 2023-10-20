@@ -1,0 +1,127 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ag-Grid Basic Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    
+  </head>
+  <body>
+    <div
+      id="myGrid"
+      style="height: 200px; width: 802px"
+      class="ag-theme-alpine"
+    ></div>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JavaScript example</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/layout.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+    <style media="only screen">
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      html {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0;
+        overflow: auto;
+      }
+
+      body {
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body></body>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+      <ul class="navbar-nav">
+        <img
+          class="rounded-circle project-icon"
+          alt="100x100"
+          src="https://ih1.redbubble.net/image.1703296696.9941/st,small,507x507-pad,600x600,f8f8f8.jpg"
+          height="30px"
+          width="30px"
+          style="margin-right: 5px; margin-top: 5px"
+          data-holder-rendered="true"
+        />
+        <a class="navbar-brand" href="/">WolfTrack</a>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/resumeAnalyzer" style="color: #facaca; text-decoration: none"
+          >Analyze Resume</a
+        >
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/findJobs" style="color: #facaca; text-decoration: none"
+          >Recommended Jobs</a
+        >
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <a href="/chat_gpt_analyzer" style="color: #facaca; text-decoration: none">Resume Suggestions</a>
+    </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </nav>
+    <center style="margin: 10px">
+      <button class="btn btn-outlined" value="saveChanges()">
+        Save Changes
+      </button>
+    </center>
+    <div id="myGrid" style="height: 100%" class="ag-theme-alpine"></div>
+    <script>
+      var __basePath = "./";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@30.2.0/dist/ag-grid-enterprise.min.js"></script>
+    <script src="../static/js/companies_list.js"></script>
+  </body>
+</html>
